@@ -1,0 +1,110 @@
+import java.util.Scanner;
+public class DiceRoll {
+
+    public static Scanner reader = new Scanner(System.in);
+    public static void main(String[] args) {
+        
+        int [] userDice = new int [3];
+        int [] cpuDice = new int [3];
+        
+        System.out.println("Want to play dice against the cpu? (Y/N)");
+        System.out.println("You will be given 10 coins to gamble on the games");
+        String answer = reader.nextLine();
+        
+        String play = "y";
+        
+        while(!answer.equalsIgnoreCase(play))
+        {
+            System.out.println("Want to play dice against the cpu? (Y/N)");
+            System.out.println("You will be given 10 coins to gamble on the games");
+            answer = reader.nextLine();
+        }
+        
+        System.out.println();
+
+        int coins = 10;
+        int sum = 0;
+        int cpuSum = 0;
+        
+        
+        
+        while(coins > 0)
+        {
+            System.out.println();
+        
+            System.out.println("you have " + coins + " left. Place your bet.");
+            int bet = reader.nextInt();
+            
+            coins = game(UserDice(userDice, sum), cpuDice(cpuDice, cpuSum), bet, coins);
+        
+        }
+        System.out.println();
+        System.out.println("Thank you for playing!");
+}
+
+    public static int UserDice(int [] dice , int sum )
+    {
+        for(int i = 0; i < dice.length; i++)
+        {
+            dice[i] = (int)(Math.random()*6 + 1);
+            sum = sum + dice[i];
+        }
+        for(int i = 0; i < dice.length; i++)
+        {
+            System.out.print(dice[i] + " ");
+        }
+        System.out.println();
+        System.out.println("The sum of the USER dice is " + sum);
+    
+    return sum;
+    
+    }
+    
+    public static int cpuDice( int [] dice , int sum )
+    {
+        for(int i = 0; i < dice.length; i++)
+        {
+            dice[i] = (int)(Math.random()*6 + 1);
+            sum = sum + dice[i];
+        }
+        for(int i = 0; i < dice.length; i++)
+        {
+            System.out.print(dice[i] + " ");
+        }
+        System.out.println();
+        System.out.println("The sum of the CPU dice is " + sum);
+        System.out.println();
+        
+        return sum;
+    }
+    
+    public static int game(int sum, int cpuSum, int bet, int coins)
+    {
+        if(sum > cpuSum)
+            {
+            System.out.println("Sum : " + sum);
+            System.out.println("CPU Sum: " + cpuSum);
+            coins = coins +  bet;
+            
+            System.out.println("You win! Your total is now " + coins + " coins!");
+            }
+        else if (sum < cpuSum)
+            {
+            System.out.println("Sum : " + sum);
+            System.out.println("CPU Sum: " + cpuSum);
+            
+            coins = coins - bet;
+            
+            System.out.println("CPU wins! Your total is now " + coins + " coins.");
+            }
+        else
+        {
+            System.out.println("Sum : " + sum);
+            System.out.println("CPU Sum: " + cpuSum);
+            
+            System.out.println("tie game");
+        }
+        
+        return coins;
+    }
+}
